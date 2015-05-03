@@ -3,8 +3,11 @@ extends layout
 block content
   .container
     canvas#c()
+  .container
+    form(action='/', method='post')
+      input.user-input(type='text', name='body')
+      input(type='submit', value='Submit')
 
   script(src='/js/jquery.min.js')
   script(src='/js/tinycolor.js')
-
   script(src='/js/lib/wall.js')
