@@ -1,6 +1,7 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #777777;
 }
 
 a {
@@ -9,6 +10,10 @@ a {
 
 .container {
   text-align: center;
+}
+
+.user-input {
+  width: 55vw;
 }
 
 canvas {
