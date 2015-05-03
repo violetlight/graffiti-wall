@@ -1,0 +1,24 @@
+{
+  "name": "wall",
+  "version": "0.0.0",
+  "authors": [
+    "JF <jasonhfields@gmail.com>"
+  ],
+  "main": "app.js",
+  "keywords": [
+    "graffiti"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "bower_components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "tinycolor": "~1.1.2"
+  }
+}
