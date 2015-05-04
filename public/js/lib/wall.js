@@ -4,6 +4,7 @@ var canvas = document.getElementById('c'),
     h = canvas.height = window.innerHeight/1.5,
     start = null,
     frame = 0,
+    allGraffiti = [],
     background = tinycolor('#232323');
 
 
@@ -21,8 +22,15 @@ function update(timestep) {
 }
 
 function initLoop(g) { // pass graffitiData in
+  // instantiate objects based on g
+  for (var i=0; i<g.length; i++) {
+    var obj = new Graffiti;
+    obj.body = g[i].body;
+    allGraffiti.push(obj);
+  }
+
   function animate(timestep) {
-    console.log(g);
+    console.log(allGraffiti);
     window.requestAnimationFrame(animate);
     // options go here
     ctx.fillStyle = background;
