@@ -6,7 +6,7 @@ var canvas = document.getElementById('c'),
     second = 1000, // milliseconds
     frame = 0,
     allGraffiti = [],
-    ageLimit = 3*(second*60), // three minutes
+    ageLimit = 1*(second*60), // three minutes
     background = tinycolor('#232323');
 
 
@@ -25,7 +25,12 @@ function Graffiti() {
 }
 
 Graffiti.prototype.update = function() {
+  var now = new Date();
+  this.age = now - this.createdAt;
+  console.log(this.age);
   ctx.font = this.font;
+  var alpha = rangeMap(0, ageLimit, 1, 0, this.age);
+  this.color.setAlpha(alpha);
   ctx.fillStyle = this.color;
   ctx.fillText(this.body, this.x, this.y);
   //this.color.spin(1);
@@ -39,24 +44,22 @@ function update(timestep) {
 
   for (var i=0; i<allGraffiti.length; i++) {
     allGraffiti[i].update();
-    console.log(allGraffiti[i].age);
-    console.log(ageLimit);
+
+    // remove dead graffiti
     if (allGraffiti[i].age > ageLimit) {
       allGraffiti.splice(i, 1);
       i--;
     }
-  }
+  }// end of update loop over allGraffiti
 }
 
 
 function initLoop(g) { // pass graffitiData in
-  var now = new Date();
 
   // unpack data and instantiate objets for canvas
   for (var i=0; i<g.length; i++) {
     var obj = new Graffiti;
-    obj.age = (now - new Date(g[i].createdAt));
-    console.log(obj.age);
+    obj.createdAt = new Date(g[i].createdAt);
     obj.body = g[i].body;
     var txt = ctx.measureText(g[i].body);
     obj.x = rangeMap(0, 100, 0, w-txt.width*2, g[i].x);
