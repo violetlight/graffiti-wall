@@ -13,7 +13,6 @@ function Graffiti() {
 }
 
 
-
 function update(timestep) {
   // housekeeping (timer, frame advancement)
   if (!start) start = timestep;
@@ -21,8 +20,10 @@ function update(timestep) {
   frame += .5;
 }
 
+
 function initLoop(g) { // pass graffitiData in
-  // instantiate objects based on g
+
+  //instantiate objects based on data
   for (var i=0; i<g.length; i++) {
     var obj = new Graffiti;
     obj.body = g[i].body;
@@ -37,8 +38,10 @@ function initLoop(g) { // pass graffitiData in
     ctx.fillRect(0, 0, w, h);
     update(timestep);
   }
+
   window.requestAnimationFrame(animate); // fix this
 }
+
 
 $(document).ready(function() {
   $.get('/g', function(graffitiData) {
