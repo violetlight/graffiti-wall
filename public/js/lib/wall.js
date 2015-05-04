@@ -25,15 +25,20 @@ function Graffiti() {
 }
 
 Graffiti.prototype.update = function() {
-  var now = new Date();
-  this.age = now - this.createdAt;
-  console.log(this.age);
   ctx.font = this.font;
-  var alpha = rangeMap(0, ageLimit, 1, 0, this.age);
+  var alpha = rangeMap(0, ageLimit, 1, 0, this.getAge());
   this.color.setAlpha(alpha);
+  this.color.desaturate(.001);
+
+  // draw
   ctx.fillStyle = this.color;
   ctx.fillText(this.body, this.x, this.y);
   //this.color.spin(1);
+}
+
+Graffiti.prototype.getAge = function() {
+  var now = new Date();
+  return (now - this.createdAt);
 }
 
 function update(timestep) {
@@ -46,7 +51,7 @@ function update(timestep) {
     allGraffiti[i].update();
 
     // remove dead graffiti
-    if (allGraffiti[i].age > ageLimit) {
+    if (allGraffiti[i].getAge() > ageLimit) {
       allGraffiti.splice(i, 1);
       i--;
     }
