@@ -20,5 +20,13 @@ router.post('/', function(req, res, next) {
   });
 });
 
+/* 10 most recent Graffiti */
+router.get('/g', function(req, res, next) {
+  Graffiti.find({}, function(err, data) {
+    if (err) console.log(err);
+    else res.json(data);
+  });
+});
+
 
 module.exports = router;
