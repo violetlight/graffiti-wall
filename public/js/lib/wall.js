@@ -29,8 +29,7 @@ function initLoop(g) { // pass graffitiData in
     ctx.fillRect(0, 0, w, h);
     update(timestep);
   }
-
-  window.requestAnimationFrame(animate);
+  window.requestAnimationFrame(animate); // fix this
 }
 
 $(document).ready(function() {
