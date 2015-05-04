@@ -54,7 +54,7 @@ function update(timestep) {
 }
 
 
-function initLoop(g) { // pass graffitiData in
+function loop(g) { // pass graffitiData in
 
   // unpack data and instantiate objets for canvas
   for (var i=0; i<g.length; i++) {
@@ -82,6 +82,6 @@ function initLoop(g) { // pass graffitiData in
 
 $(document).ready(function() {
   $.get('/g', function(graffitiData) {
-    initLoop(graffitiData);
+    loop(graffitiData);
   });
 });
