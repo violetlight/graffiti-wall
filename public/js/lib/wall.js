@@ -9,15 +9,25 @@ var canvas = document.getElementById('c'),
 
 
 function Graffiti() {
-  this.body = "";
+  this.body = ' ';
+  this.font = '48px serif';
 }
 
+Graffiti.prototype.update = function() {
+  ctx.font = this.font;
+  ctx.fillStyle = tinycolor('#FFF000');
+  ctx.fillText(this.body, 50, 50);
+}
 
 function update(timestep) {
   // housekeeping (timer, frame advancement)
   if (!start) start = timestep;
   var progress = timestep - start;
   frame += .5;
+
+  for (var i=0; i<allGraffiti.length; i++) {
+    allGraffiti[i].update();
+  }
 }
 
 
@@ -31,7 +41,6 @@ function initLoop(g) { // pass graffitiData in
   }
 
   function animate(timestep) {
-    console.log(allGraffiti);
     window.requestAnimationFrame(animate);
     // options go here
     ctx.fillStyle = background;
