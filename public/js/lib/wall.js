@@ -20,17 +20,21 @@ function update(timestep) {
   frame += .5;
 }
 
-function animate(timestep) {
+function initLoop(g) { // pass graffitiData in
+  function animate(timestep) {
+    console.log(g);
+    window.requestAnimationFrame(animate);
+    // options go here
+    ctx.fillStyle = background;
+    ctx.fillRect(0, 0, w, h);
+    update(timestep);
+  }
+
   window.requestAnimationFrame(animate);
-  // options go here
-  ctx.fillStyle = background;
-  ctx.fillRect(0, 0, w, h);
-  update(timestep);
 }
 
 $(document).ready(function() {
-  $.get('/g', function(graffiti) {
-    console.log(graffiti);
-    window.requestAnimationFrame(animate);
+  $.get('/g', function(graffitiData) {
+    initLoop(graffitiData);
   });
 });
