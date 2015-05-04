@@ -7,6 +7,11 @@ var canvas = document.getElementById('c'),
     background = tinycolor('#232323');
 
 
+function Graffiti() {
+  this.body = "";
+}
+
+
 
 function update(timestep) {
   // housekeeping (timer, frame advancement)
