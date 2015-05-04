@@ -6,7 +6,9 @@ var canvas = document.getElementById('c'),
     frame = 0,
     background = tinycolor('#232323');
 
-function update() {
+
+
+function update(timestep) {
   // housekeeping (timer, frame advancement)
   if (!start) start = timestep;
   var progress = timestep - start;
@@ -18,9 +20,12 @@ function animate(timestep) {
   // options go here
   ctx.fillStyle = background;
   ctx.fillRect(0, 0, w, h);
-  update();
+  update(timestep);
 }
 
 $(document).ready(function() {
-  window.requestAnimationFrame(animate);
+  $.get('/g', function(graffiti) {
+    console.log(graffiti);
+    window.requestAnimationFrame(animate);
+  });
 });
