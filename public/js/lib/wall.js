@@ -13,12 +13,14 @@ function Graffiti() {
   this.font = '48px serif';
   this.x = Math.random() * w;
   this.y = Math.random() * h;
+  this.color = tinycolor.random();
 }
 
 Graffiti.prototype.update = function() {
   ctx.font = this.font;
-  ctx.fillStyle = tinycolor('#FFF000');
+  ctx.fillStyle = this.color;
   ctx.fillText(this.body, this.x, this.y);
+  //this.color.spin(1);
 }
 
 function update(timestep) {
