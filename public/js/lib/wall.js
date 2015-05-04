@@ -11,12 +11,14 @@ var canvas = document.getElementById('c'),
 function Graffiti() {
   this.body = ' ';
   this.font = '48px serif';
+  this.x = Math.random() * w;
+  this.y = Math.random() * h;
 }
 
 Graffiti.prototype.update = function() {
   ctx.font = this.font;
   ctx.fillStyle = tinycolor('#FFF000');
-  ctx.fillText(this.body, 50, 50);
+  ctx.fillText(this.body, this.x, this.y);
 }
 
 function update(timestep) {
