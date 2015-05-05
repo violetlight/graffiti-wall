@@ -5,6 +5,14 @@ var canvas = document.getElementById('c'),
     start = null,
     second = 1000, // milliseconds
     frame = 0,
+
+    // FPS-related
+    fps = 30,
+    now,
+    delta,
+    then = Date.now(),
+    interval = 1000/fps,
+
     allGraffiti = [],
     ageLimit = 1*(second*60), // three minutes
     background = tinycolor('#232323');
@@ -86,6 +94,20 @@ function loop(g) { // pass graffitiData in
 
 
 $(document).ready(function() {
+
+  // make it work cross-platform
+  window.requestAnimFrame = (function() {
+    return  window.requestAnimationFrame  ||
+    window.webkitRequestAnimationFrame    ||
+    window.mozRequestAnimationFrame       ||
+    window.oRequestAnimationFrame         ||
+    window.msRequestAnimationFrame        ||
+    function(/* function */ callback, /* DOMElement */ element){
+      window.setTimeout(callback, 1000 / 60);
+    };
+  })();
+
+
   $.get('/g', function(graffitiData) {
     loop(graffitiData);
   });
