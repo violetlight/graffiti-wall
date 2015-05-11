@@ -14,6 +14,7 @@ var canvas = document.getElementById('c'),
     interval = 1000/fps,
 
     allGraffiti = [],
+    maxSize = 60, // px, this is the size newest graffiti starts as
     ageLimit = 1*(second*60), // three minutes
     background = tinycolor('#232323');
 
@@ -29,19 +30,24 @@ function rangeMap(inMin, inMax, outMin, outMax, inVal) {
 }
 
 function Graffiti() {
-  this.font = '48px serif';
+  this.size = maxSize;
+  this.font = 'px serif';
 }
 
 Graffiti.prototype.update = function() {
-  ctx.font = this.font;
+  ctx.font = this.size + this.font;
   var alpha = rangeMap(0, ageLimit, 1, 0, this.getAge());
   this.color.setAlpha(alpha);
-  this.color.desaturate(.001);
+  this.color.desaturate(.05);
+
 
   // draw
   ctx.fillStyle = this.color;
-  ctx.fillText(this.body, this.x, this.y);
+  var txt = ctx.measureText(this.body);
+  ctx.fillText(this.body, this.center-(txt.width/2), this.y);
   //this.color.spin(1);
+
+  this.size = rangeMap(0, ageLimit, maxSize, 0, this.getAge());
 }
 
 Graffiti.prototype.getAge = function() {
@@ -56,7 +62,7 @@ function update(timestep) {
   frame += .5;
 
   for (var i=0; i<allGraffiti.length; i++) {
-    allGraffiti[i].update();
+    allGraffiti[i].update(); // call individual update for each Graffiti
 
     // remove dead graffiti
     if (allGraffiti[i].getAge() > ageLimit) {
@@ -83,8 +89,10 @@ function loop(g) { // pass graffitiData in
     // random start location
     obj.x = rangeMap(0, 100, 0, w-txt.width, g[i].x);
     obj.y = rangeMap(0, 100, 0, h, g[i].y);
+    obj.center = obj.x + txt.width/2;
 
     obj.color = tinycolor(g[i].color); // "root" color in db
+    obj.color.setAlpha(.8);
     allGraffiti.push(obj);
   }
 
