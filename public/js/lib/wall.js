@@ -81,7 +81,7 @@ function loop(g) { // pass graffitiData in
     var txt = ctx.measureText(g[i].body);
 
     // random start location
-    obj.x = rangeMap(0, 100, 0, w-txt.width*2, g[i].x);
+    obj.x = rangeMap(0, 100, 0, w-txt.width, g[i].x);
     obj.y = rangeMap(0, 100, 0, h, g[i].y);
 
     obj.color = tinycolor(g[i].color); // "root" color in db
