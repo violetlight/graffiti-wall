@@ -36,9 +36,9 @@ function Graffiti() {
 
 Graffiti.prototype.update = function() {
   ctx.font = this.size + this.font;
-  var alpha = rangeMap(0, ageLimit, 1, 0, this.getAge());
-  this.color.setAlpha(alpha);
-  this.color.desaturate(.05);
+  var alpha = rangeMap(0, ageLimit, 1, 0, this.getAge()); // age == distance
+  this.color.setAlpha(alpha); // "fog" obscures objects in distance
+  this.color.desaturate(.08); // rate of desaturation
 
 
   // draw
@@ -91,8 +91,14 @@ function loop(g) { // pass graffitiData in
     obj.y = rangeMap(0, 100, 0, h, g[i].y);
     obj.center = obj.x + txt.width/2;
 
-    obj.color = tinycolor(g[i].color); // "root" color in db
+    // "root" color in db. maybe make a random one here instead,
+    // as storing front end details in the back end is bad.
+    obj.color = tinycolor(g[i].color);
+
+    // color initialization
     obj.color.setAlpha(.8);
+    obj.color.saturate(80);
+
     allGraffiti.push(obj);
   }
 
