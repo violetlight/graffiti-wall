@@ -94,10 +94,8 @@ function loop(g) { // pass graffitiData in
 
 
 $(document).ready(function() {
-
-  // make it work cross-platform
   window.requestAnimFrame = (function() {
-    return  window.requestAnimationFrame  ||
+    return window.requestAnimationFrame   ||
     window.webkitRequestAnimationFrame    ||
     window.mozRequestAnimationFrame       ||
     window.oRequestAnimationFrame         ||
