@@ -31,7 +31,7 @@ function rangeMap(inMin, inMax, outMin, outMax, inVal) {
 
 function Graffiti() {
   this.size = maxSize;
-  this.font = 'px serif';
+  this.font = 'px monospace';
 }
 
 Graffiti.prototype.update = function() {
@@ -61,8 +61,10 @@ function update(timestep) {
   var progress = timestep - start;
   frame += .5;
 
-  for (var i=0; i<allGraffiti.length; i++) {
-    allGraffiti[i].update(); // call individual update for each Graffiti
+  for (var i in allGraffiti) {
+    if (allGraffiti[i].getAge() < ageLimit) {
+      allGraffiti[i].update(); // call individual update for each Graffiti
+    }
 
     // remove dead graffiti
     if (allGraffiti[i].getAge() > ageLimit) {
@@ -75,7 +77,7 @@ function update(timestep) {
 
 function loop(g) { // pass graffitiData in
   // unpack data and instantiate objets for canvas
-  for (var i=0; i<g.length; i++) {
+  for (i in g) {
 
     // instantiate new Graffiti
     var obj = new Graffiti;
