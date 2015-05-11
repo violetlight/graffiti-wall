@@ -38,14 +38,14 @@ Graffiti.prototype.update = function() {
   ctx.font = this.size + this.font;
   var alpha = rangeMap(0, ageLimit, 1, 0, this.getAge()); // age == distance
   this.color.setAlpha(alpha); // "fog" obscures objects in distance
-  this.color.desaturate(.08); // rate of desaturation
+  this.color.desaturate(.03); // rate of desaturation
 
 
   // draw
   ctx.fillStyle = this.color;
   var txt = ctx.measureText(this.body);
   ctx.fillText(this.body, this.center-(txt.width/2), this.y);
-  //this.color.spin(1);
+  this.color.spin(.1);
 
   this.size = rangeMap(0, ageLimit, maxSize, 0, this.getAge());
 }
@@ -81,7 +81,7 @@ function loop(g) { // pass graffitiData in
 
     // instantiate new Graffiti
     var obj = new Graffiti;
-    obj.createdAt = new Date(g[i].createdAt);
+    obj.createdAt = new Date(g[i].createdAt); // this should probably be stored on the session to prevent the refresh bug
 
     // set graffiti text
     obj.body = g[i].body;
