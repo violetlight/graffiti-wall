@@ -63,33 +63,41 @@ function update(timestep) {
       allGraffiti.splice(i, 1);
       i--;
     }
-  }// end of update loop over allGraffiti
+  } // end of update loop over allGraffiti
 }
 
 
 function loop(g) { // pass graffitiData in
-
   // unpack data and instantiate objets for canvas
   for (var i=0; i<g.length; i++) {
+
+    // instantiate new Graffiti
     var obj = new Graffiti;
     obj.createdAt = new Date(g[i].createdAt);
+
+    // set graffiti text
     obj.body = g[i].body;
+    // measure its size for use in rendering
     var txt = ctx.measureText(g[i].body);
+
+    // random start location
     obj.x = rangeMap(0, 100, 0, w-txt.width*2, g[i].x);
     obj.y = rangeMap(0, 100, 0, w, g[i].y);
-    obj.color = tinycolor(g[i].color);
+
+    obj.color = tinycolor(g[i].color); // "root" color in db
     allGraffiti.push(obj);
   }
 
+  // animation loop
   function animate(timestep) {
     window.requestAnimationFrame(animate);
-    // options go here
     ctx.fillStyle = background;
     ctx.fillRect(0, 0, w, h);
     update(timestep);
+    console.log(allGraffiti.length);
   }
 
-  window.requestAnimationFrame(animate); // fix this
+  window.requestAnimationFrame(animate);
 }
 
 
