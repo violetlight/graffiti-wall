@@ -82,7 +82,7 @@ function loop(g) { // pass graffitiData in
 
     // random start location
     obj.x = rangeMap(0, 100, 0, w-txt.width*2, g[i].x);
-    obj.y = rangeMap(0, 100, 0, w, g[i].y);
+    obj.y = rangeMap(0, 100, 0, h, g[i].y);
 
     obj.color = tinycolor(g[i].color); // "root" color in db
     allGraffiti.push(obj);
